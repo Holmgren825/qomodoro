@@ -1,0 +1,18 @@
+app-id: org.kde.qomodoro
+runtime: org.kde.Platform
+runtime-version: '5.15'
+sdk: org.kde.Sdk
+command: qomodoro
+finish-args:
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  - --talk-name=org.freedesktop.Notifications
+  - --talk-name=org.kde.StatusNotifierWatcher
+modules:
+  - name: qomodoro
+    buildsystem: cmake-ninja
+    sources:
+      - type: dir
+        path: .

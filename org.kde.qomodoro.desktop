@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Qomodoro
+Comment=A pomodoro timer for plasma.
+Exec=qomodoro
+Type=Application
+Terminal=false
+
