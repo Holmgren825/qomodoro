@@ -5,4 +5,4 @@ Main interface
 Useful tooltip in systemtray
 ![](./imgs/tooltip.png)
 Fullscreen break screen
-![](.imgs/break_screen.png)
+![](./imgs/break_screen.png)
