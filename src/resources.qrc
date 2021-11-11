@@ -1,5 +1,15 @@
 <RCC>
     <qresource prefix="/">
         <file alias="main.qml">contents/ui/main.qml</file>
+        <file alias="icon1.png">contents/ui/icons/icon1.png</file>
+        <file alias="icon2.png">contents/ui/icons/icon2.png</file>
+        <file alias="icon3.png">contents/ui/icons/icon3.png</file>
+        <file alias="icon4.png">contents/ui/icons/icon4.png</file>
+        <file alias="icon5.png">contents/ui/icons/icon5.png</file>
+        <file alias="icon6.png">contents/ui/icons/icon6.png</file>
+        <file alias="icon7.png">contents/ui/icons/icon7.png</file>
+        <file alias="icon8.png">contents/ui/icons/icon8.png</file>
+        <file alias="icon9.png">contents/ui/icons/icon9.png</file>
+        <file alias="icon10.png">contents/ui/icons/icon10.png</file>
     </qresource>
 </RCC>

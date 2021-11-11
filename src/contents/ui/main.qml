@@ -31,7 +31,7 @@ Kirigami.ApplicationWindow {
     Labs.SystemTrayIcon {
         id: sysTray
         visible: true
-        icon.name: "preferences-system-time"
+        icon.source: "icon1.png"
         tooltip: i18n("Wait")
         onActivated: {
             root.show()
@@ -70,6 +70,7 @@ Kirigami.ApplicationWindow {
                 PropertyChanges{ target: trayControl; text: i18n("Start") }
                 PropertyChanges{ target: root; visibility: "Windowed" }
                 PropertyChanges{ target: sysTray; tooltip: i18n("Wait") }
+                PropertyChanges{ target: sysTray; icon.source: "icon1.png" }
             },
             State {
                 name: "work";
@@ -78,6 +79,7 @@ Kirigami.ApplicationWindow {
                 PropertyChanges{ target: trayControl; text: i18n("Pause") }
                 PropertyChanges{ target: root; visibility: "Windowed" }
                 PropertyChanges{ target: sysTray; tooltip: i18n("Work: " + timerString.text) }
+                PropertyChanges{ target: sysTray; icon.source: "qrc:/icon" + timer.trayCount +  ".png" }
             },
             State {
                 name: "pause"
@@ -92,12 +94,14 @@ Kirigami.ApplicationWindow {
                 PropertyChanges{ target: buttons_column; visible: false }
                 PropertyChanges{ target: main_title; text: i18n("Break") }
                 PropertyChanges{ target: root; visibility: "FullScreen" }
+                PropertyChanges{ target: sysTray; icon.source: "icon1.png" }
             },
             State {
                 name: "long break"
                 PropertyChanges{ target: main_title; text: i18n("Long break") }
                 PropertyChanges{ target: buttons_column; visible: false }
                 PropertyChanges{ target: root; visibility: "FullScreen" }
+                PropertyChanges{ target: sysTray; icon.source: "icon1.png" }
             }
         ]
         state: "wait"
@@ -106,12 +110,16 @@ Kirigami.ApplicationWindow {
                 id: timer
                 property int value: workMinutes.value * 60
                 property int session: 1
+                property int trayCount: 1
                 interval: 1000
                 repeat: true
                 running: false
                 onTriggered: {
                     value = (value - 1)
                     minuteProgress.value = timer.value
+                    if (main.state == "work") {
+                        timer.update_tray()
+                    }
 
                     if (value == 0 && main.state == "work" && session != workRounds.value) {
                         timer.start_break()
@@ -142,6 +150,7 @@ Kirigami.ApplicationWindow {
                 timer.stop()
                 main.state = "wait"
                 timer.session += 1
+                timer.trayCount = 1
             }
             function start_break () {
                 timer.value = shortBreakMinutes.value * 60
@@ -154,6 +163,12 @@ Kirigami.ApplicationWindow {
                 minuteProgress.value = longBreakMinutes.value * 60
                 minuteProgress.to = longBreakMinutes.value * 60
                 main.state = "long break"
+            }
+            function update_tray () {
+                if (timer.value % (workMinutes.value * 60 / 10) == 0 && timer.trayCount <= 10) {
+                    timer.trayCount += 1
+
+                }
             }
         }
 
